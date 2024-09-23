@@ -107,7 +107,20 @@ export default function Home() {
             <Button className=" mt-3 font-bold p-5">Start Creating</Button>
           </Link> */}
 
-            <div className="flex flex-col justify-center items-center mt-5 lg:mt-20">
+            <motion.div
+              initial={{
+                opacity: 0,
+                scale: 0.95,
+                filter: "blur(10px)",
+              }}
+              animate={{
+                opacity: 1,
+                scale: 1,
+                filter: "blur(0px)",
+              }}
+              transition={{ duration: 0.35, delay: 0.85 }}
+              className="flex flex-col justify-center items-center mt-5 lg:mt-20"
+            >
               <div className="poppins-semibold text-xl">Recent Creations</div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-x-5 lg:gap-x-10">
                 <Image
@@ -136,7 +149,7 @@ export default function Home() {
                   className="h-72 w-60 object-contain"
                 />
               </div>
-            </div>
+            </motion.div>
           </motion.div>
         </div>
       </div>
