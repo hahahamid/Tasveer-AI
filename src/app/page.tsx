@@ -4,7 +4,13 @@ import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
 import { SparklesCore } from "@/components/ui/sparkles";
 import { motion } from "framer-motion";
 import { ChevronRight } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
+import one from "@/images/one.png";
+import two from "@/images/two.jpg";
+import three from "@/images/three.jpg";
+import four from "@/images/four.jpg";
+import five from "@/images/five.jpg";
 
 export default function Home() {
   return (
@@ -85,22 +91,52 @@ export default function Home() {
             }}
             transition={{ duration: 0.35, delay: 0.7 }}
           >
-            <Link href="/create">
+            <Link href="/create" className="flex justify-center items-center">
               <HoverBorderGradient
                 containerClassName="rounded-full px-3 mt-5"
                 as="button"
                 className="bg-transparent text-white flex items-center"
               >
-                <span className="flex items-center justify-center gap-x-1 text-sm">
+                <span className="flex items-center justify-center gap-x-1 text-sm poppins-regular">
                   START CREATING{" "}
                   <ChevronRight size={20} className="-mt-[1px]" />
                 </span>
               </HoverBorderGradient>
             </Link>
-
             {/* <Link href="/create">
             <Button className=" mt-3 font-bold p-5">Start Creating</Button>
           </Link> */}
+
+            <div className="flex flex-col justify-center items-center mt-5 lg:mt-20">
+              <div className="poppins-semibold text-xl">Recent Creations</div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-x-5 lg:gap-x-10">
+                <Image
+                  src={two}
+                  alt="image"
+                  className="h-72 w-60 object-contain"
+                />
+                <Image
+                  src={three}
+                  alt="image"
+                  className="h-72 w-60 object-contain"
+                />
+                <Image
+                  src={four}
+                  alt="image"
+                  className="h-72 w-60 object-contain"
+                />
+                <Image
+                  src={five}
+                  alt="image"
+                  className="h-72 w-60 object-contain"
+                />
+                <Image
+                  src={one}
+                  alt="image"
+                  className="h-72 w-60 object-contain"
+                />
+              </div>
+            </div>
           </motion.div>
         </div>
       </div>
