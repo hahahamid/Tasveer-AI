@@ -21,7 +21,7 @@ export default function Home() {
           transition={{ duration: 0.35, delay: 0 }}
           className="text-4xl sm:text-6xl font-bold"
         >
-          Imagica
+          TASVEER AI
         </motion.h1>
         <motion.p
           initial={{
@@ -37,7 +37,7 @@ export default function Home() {
           transition={{ duration: 0.35, delay: 0.35 }}
           className="text-center text-white/50"
         >
-          Generate stunning images from text using LLMs for free
+          Your imagination, visualized with AI — no cost, no limits.
         </motion.p>
         <motion.div
           initial={{

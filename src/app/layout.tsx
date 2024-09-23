@@ -18,16 +18,16 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Imagica - Generate Images for FREE",
+  title: "Tasveer AI - Generate Images for FREE",
   description:
-    "Generate stunning images from text using AI models for free with Imagica. Turn your ideas into visual art instantly.",
+    "Generate stunning images from text using AI models for free with Tasveer AI. Turn your ideas into visual art instantly.",
   openGraph: {
-    title: "Imagica - Generate Images for FREE",
+    title: "Tasveer AI - Generate Images for FREE",
     description: "Turn your text into images with our free AI-powered tool",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Imagica - Generate Images for FREE",
+    title: "Tasveer AI - Generate Images for FREE",
     description: "Turn your text into images with our free AI-powered tool",
   },
 };
