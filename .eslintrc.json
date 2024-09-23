@@ -1,3 +1,13 @@
 {
-  "extends": ["next/core-web-vitals", "next/typescript"]
+  "extends": ["next/core-web-vitals", "next/typescript"],
+  "rules": {
+    "@typescript-eslint/no-empty-interface": "off",
+    "@typescript-eslint/no-unused-vars": [
+      "warn", // Change this to "off" if you want to disable it completely
+      {
+        "argsIgnorePattern": "^_", // Ignore unused variables that start with an underscore
+        "varsIgnorePattern": "^_" // Ignore unused variables that start with an underscore
+      }
+    ]
+  }
 }
