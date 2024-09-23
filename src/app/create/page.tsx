@@ -16,6 +16,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import Image from "next/image";
 import { useToast } from "@/hooks/use-toast";
+import { ToastAction } from "@/components/ui/toast";
 
 const formSchema = z.object({
   prompt: z
@@ -67,7 +68,7 @@ export default function Page() {
           Generate Stunning Images from Text for FREE
         </p>
       </div>
-      <div className="flex w-full gap-3 h-[calc(100dvh-200px)] md:flex-row flex-col">
+      <div className="flex w-full lg:pl-5 gap-3 h-[calc(100dvh-200px)] md:flex-row flex-col">
         <div className="__form flex-[2] h-full gap-2 flex justify-center items-start flex-col">
           <p className="text-center w-full lg:text-left text-sm text-white/80">
             Type you prompt below to create any image you can imagine!

@@ -1,62 +1,109 @@
 "use client";
 import { Button } from "@/components/ui/button";
+import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
+import { SparklesCore } from "@/components/ui/sparkles";
 import { motion } from "framer-motion";
+import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="w-full h-dvh flex justify-center items-center">
-      <div className="flex justify-center items-center flex-col">
-        <motion.h1
-          initial={{
-            opacity: 0,
-            scale: 0.95,
-            filter: "blur(10px)",
-          }}
-          animate={{
-            opacity: 1,
-            scale: 1,
-            filter: "blur(0px)",
-          }}
-          transition={{ duration: 0.35, delay: 0 }}
-          className="text-4xl sm:text-6xl font-bold"
-        >
-          TASVEER AI
-        </motion.h1>
-        <motion.p
-          initial={{
-            opacity: 0,
-            scale: 0.95,
-            filter: "blur(10px)",
-          }}
-          animate={{
-            opacity: 1,
-            scale: 1,
-            filter: "blur(0px)",
-          }}
-          transition={{ duration: 0.35, delay: 0.35 }}
-          className="text-center text-white/50"
-        >
-          Your imagination, visualized with AI — no cost, no limits.
-        </motion.p>
-        <motion.div
-          initial={{
-            opacity: 0,
-            scale: 0.95,
-            filter: "blur(10px)",
-          }}
-          animate={{
-            opacity: 1,
-            scale: 1,
-            filter: "blur(0px)",
-          }}
-          transition={{ duration: 0.35, delay: 0.7 }}
-        >
-          <Link href="/create">
-            <Button className=" mt-3 font-bold p-5">Start Creating</Button>
-          </Link>
-        </motion.div>
+    <>
+      <div className="w-full absolute inset-0 h-screen">
+        <SparklesCore
+          id="tsparticlesfullpage"
+          background="transparent"
+          minSize={0.6}
+          maxSize={1.4}
+          particleDensity={100}
+          className="w-full h-full"
+          particleColor="#FFFFFF"
+        />
       </div>
-    </div>
+      <div className="w-full pt-32 flex justify-center items-center">
+        <div className="flex justify-center items-center flex-col">
+          <motion.h1
+            initial={{
+              opacity: 0,
+              scale: 0.95,
+              filter: "blur(10px)",
+            }}
+            animate={{
+              opacity: 1,
+              scale: 1,
+              filter: "blur(0px)",
+            }}
+            transition={{ duration: 0.35, delay: 0 }}
+            className="text-4xl sm:text-6xl font-bold"
+          >
+            TASVEER AI
+          </motion.h1>
+          <motion.p
+            initial={{
+              opacity: 0,
+              scale: 0.95,
+              filter: "blur(10px)",
+            }}
+            animate={{
+              opacity: 1,
+              scale: 1,
+              filter: "blur(0px)",
+            }}
+            transition={{ duration: 0.35, delay: 0.35 }}
+            className="hidden md:block mt-2 text-center text-white/60 poppins-regular uppercase"
+          >
+            Your imagination, visualized with AI — no cost, no limits.
+          </motion.p>
+
+          <motion.p
+            initial={{
+              opacity: 0,
+              scale: 0.95,
+              filter: "blur(10px)",
+            }}
+            animate={{
+              opacity: 1,
+              scale: 1,
+              filter: "blur(0px)",
+            }}
+            transition={{ duration: 0.35, delay: 0.35 }}
+            className="md:hidden mt-2 text-center text-white/60 poppins-regular uppercase text-sm"
+          >
+            Your imagination, visualized with AI
+            <br /> no cost, no limits.
+          </motion.p>
+          <motion.div
+            initial={{
+              opacity: 0,
+              scale: 0.95,
+              filter: "blur(10px)",
+            }}
+            animate={{
+              opacity: 1,
+              scale: 1,
+              filter: "blur(0px)",
+            }}
+            transition={{ duration: 0.35, delay: 0.7 }}
+          >
+            <Link href="/create">
+              <HoverBorderGradient
+                containerClassName="rounded-full px-3 mt-5"
+                as="button"
+                className="bg-transparent text-white flex items-center"
+              >
+                <span className="flex items-center justify-center gap-x-1 text-sm">
+                  START CREATING{" "}
+                  <ChevronRight size={20} className="-mt-[1px]" />
+                </span>
+              </HoverBorderGradient>
+            </Link>
+
+            {/* <Link href="/create">
+            <Button className=" mt-3 font-bold p-5">Start Creating</Button>
+          </Link> */}
+          </motion.div>
+        </div>
+      </div>
+    </>
   );
 }
