@@ -25,7 +25,7 @@ export default function Home() {
 
   const isMobile = useIsMobile(768); 
 
-  const animationDuration = isMobile ? 20 : 25; 
+  const animationDuration = isMobile ? 30 : 40; 
 
   const carouselRef = useRef<HTMLDivElement>(null);
   const [carouselWidth, setCarouselWidth] = useState(0);
