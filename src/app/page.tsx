@@ -6,13 +6,45 @@ import { motion } from "framer-motion";
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRef, useEffect, useState } from "react";
 import one from "@/images/one.png";
 import two from "@/images/two.jpg";
 import three from "@/images/three.jpg";
 import four from "@/images/four.jpg";
 import five from "@/images/five.jpg";
+import six from "@/images/six.png";
+import seven from "@/images/seven.png";
+import eight from "@/images/eight.jpg";
+import nine from "@/images/nine.jpg";
+import ten from "@/images/ten.png";
+import { useIsMobile } from "@/lib/isMobile";
 
 export default function Home() {
+  const images = [ten, one, eight, two, seven, five, four, six, three, nine];
+  const duplicatedImages = [...images, ...images];
+
+  const isMobile = useIsMobile(768); 
+
+  const animationDuration = isMobile ? 20 : 25; 
+
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const [carouselWidth, setCarouselWidth] = useState(0);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (carouselRef.current) {
+        const totalWidth = carouselRef.current.scrollWidth;
+        const width = totalWidth / 2; 
+        setCarouselWidth(width);
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    handleResize();
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
     <>
       <div className="w-full absolute inset-0 h-screen">
@@ -26,8 +58,10 @@ export default function Home() {
           particleColor="#FFFFFF"
         />
       </div>
+
       <div className="w-full pt-32 flex justify-center items-center">
         <div className="flex justify-center items-center flex-col">
+          {/* Animated Title */}
           <motion.h1
             initial={{
               opacity: 0,
@@ -44,6 +78,8 @@ export default function Home() {
           >
             TASVEER AI
           </motion.h1>
+
+          {/* Animated Subtitle (Desktop) */}
           <motion.p
             initial={{
               opacity: 0,
@@ -61,6 +97,7 @@ export default function Home() {
             Your imagination, visualized with AI — no cost, no limits.
           </motion.p>
 
+          {/* Animated Subtitle (Mobile) */}
           <motion.p
             initial={{
               opacity: 0,
@@ -78,6 +115,8 @@ export default function Home() {
             Your imagination, visualized with AI
             <br /> no cost, no limits.
           </motion.p>
+
+          {/* Animated Button and Recent Creations */}
           <motion.div
             initial={{
               opacity: 0,
@@ -90,7 +129,9 @@ export default function Home() {
               filter: "blur(0px)",
             }}
             transition={{ duration: 0.35, delay: 0.7 }}
+            className="w-full flex flex-col items-center"
           >
+            {/* Start Creating Button */}
             <Link href="/create" className="flex justify-center items-center">
               <HoverBorderGradient
                 containerClassName="rounded-full px-3 mt-5"
@@ -103,10 +144,8 @@ export default function Home() {
                 </span>
               </HoverBorderGradient>
             </Link>
-            {/* <Link href="/create">
-            <Button className=" mt-3 font-bold p-5">Start Creating</Button>
-          </Link> */}
 
+            {/* Infinite Scrolling Carousel */}
             <motion.div
               initial={{
                 opacity: 0,
@@ -119,35 +158,38 @@ export default function Home() {
                 filter: "blur(0px)",
               }}
               transition={{ duration: 0.35, delay: 0.85 }}
-              className="flex flex-col justify-center items-center mt-5 lg:mt-20"
+              className="flex flex-col justify-center items-center mt-5 lg:mt-20 w-full"
             >
-              <div className="poppins-semibold text-xl">Recent Creations</div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-x-5 lg:gap-x-10">
-                <Image
-                  src={two}
-                  alt="image"
-                  className="h-72 w-60 object-contain"
-                />
-                <Image
-                  src={three}
-                  alt="image"
-                  className="h-72 w-60 object-contain"
-                />
-                <Image
-                  src={four}
-                  alt="image"
-                  className="h-72 w-60 object-contain"
-                />
-                <Image
-                  src={five}
-                  alt="image"
-                  className="h-72 w-60 object-contain"
-                />
-                <Image
-                  src={one}
-                  alt="image"
-                  className="h-72 w-60 object-contain"
-                />
+              {/* Section Title */}
+              <div className="poppins-semibold text-xl mb-4">
+                Recent Creations
+              </div>
+
+              {/* Carousel Container */}
+              <div className="overflow-hidden w-[97%] md:w-full">
+                <motion.div
+                  className="flex flex-nowrap space-x-5 lg:space-x-10"
+                  ref={carouselRef}
+                  animate={{ x: -carouselWidth }}
+                  transition={{
+                    x: {
+                      repeat: Infinity,
+                      repeatType: "loop",
+                      duration: animationDuration,
+                      ease: "linear",
+                    },
+                  }}
+                >
+                  {duplicatedImages.map((src, index) => (
+                    <div key={index} className="flex-shrink-0">
+                      <Image
+                        src={src}
+                        alt={`carousel-image-${index + 1}`}
+                        className="h-72 w-60 object-contain"
+                      />
+                    </div>
+                  ))}
+                </motion.div>
               </div>
             </motion.div>
           </motion.div>
