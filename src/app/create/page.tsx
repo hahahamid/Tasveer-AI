@@ -17,6 +17,7 @@ import Image from "next/image";
 import { useToast } from "@/hooks/use-toast";
 import Link from "next/link";
 import { MagicWandIcon, ShuffleIcon } from "@radix-ui/react-icons";
+import { useSession } from "next-auth/react";
 
 // Define the schema using Zod
 const formSchema = z.object({
@@ -71,6 +72,10 @@ export default function Page() {
       prompt: "",
     },
   });
+
+
+  const { data: session, status } = useSession(); // Get session data
+  const isLoggedIn = status === "authenticated"; // Determine if user is logged in
 
   const { setValue } = form;
 
@@ -129,9 +134,25 @@ export default function Page() {
             <Link href={"/create-anime"}>
               <Button className="poppins-semibold">Generate Anime</Button>
             </Link>
-            <Link href={"/profile"}>
-              <Button className="poppins-semibold">Check Your Creations</Button>
-            </Link>
+            {isLoggedIn ? (
+              <Link href={"/profile"}>
+                <Button className="poppins-semibold">
+                  Check Your Creations
+                </Button>
+              </Link>
+            ) : (
+              <Button
+                className="poppins-semibold"
+                onClick={() =>
+                  toast({
+                    variant: "destructive",
+                    description: "Please log in to check your creations.",
+                  })
+                }
+              >
+                Check Your Creations
+              </Button>
+            )}
           </div>
 
           {/* Instructions */}

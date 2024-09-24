@@ -17,6 +17,7 @@ import Image from "next/image";
 import { useToast } from "@/hooks/use-toast";
 import Link from "next/link";
 import { MagicWandIcon, ShuffleIcon } from "@radix-ui/react-icons";
+import { useSession } from "next-auth/react";
 
 const formSchema = z.object({
   prompt: z
@@ -70,6 +71,9 @@ export default function Page() {
     },
   });
 
+  const { data: session, status } = useSession();
+  const isLoggedIn = status === "authenticated";
+
   const { setValue } = form;
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
@@ -116,9 +120,25 @@ export default function Page() {
             <Link href={"/create"}>
               <Button className="poppins-semibold">Generate Images</Button>
             </Link>
-            <Link href={"/profile"}>
-              <Button className="poppins-semibold">check your creations</Button>
-            </Link>
+            {isLoggedIn ? (
+              <Link href={"/profile"}>
+                <Button className="poppins-semibold">
+                  Check Your Creations
+                </Button>
+              </Link>
+            ) : (
+              <Button
+                className="poppins-semibold"
+                onClick={() =>
+                  toast({
+                    variant: "destructive",
+                    description: "Please log in to check your creations.",
+                  })
+                }
+              >
+                Check Your Creations
+              </Button>
+            )}
           </div>
           <p className="w-full text-left text-sm text-white/80">
             Type your prompt below to create your anime image!
