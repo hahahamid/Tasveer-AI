@@ -158,7 +158,7 @@ export default function Home() {
                 filter: "blur(0px)",
               }}
               transition={{ duration: 0.35, delay: 0.85 }}
-              className="flex flex-col justify-center items-center mt-5 lg:mt-20 w-full"
+              className="flex flex-col justify-center items-center mt-10 lg:mt-20 w-full"
             >
               {/* Section Title */}
               <div className="poppins-semibold text-xl mb-4">
