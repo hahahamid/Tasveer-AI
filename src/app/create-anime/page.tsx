@@ -40,7 +40,7 @@ export default function Page() {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       setLoading(true);
-      const response = await fetch("/api/image", {
+      const response = await fetch("/api/anime", {
         method: "POST",
         body: JSON.stringify(values),
       });
@@ -63,24 +63,24 @@ export default function Page() {
   return (
     <div className="w-full p-3 min-h-dvh h-full flex justify-start items-center pt-[72px] flex-col">
       <div className="w-full p-3 lg:mb-5 text-center lg:text-left">
-        <h1 className=" text-white text-4xl poppins-semibold">CREATE</h1>
-        <p className="text-white/60 ">
-          Generate Stunning Images from Text for FREE
+        <h1 className="text-white text-4xl poppins-semibold">CREATE ANIME</h1>
+        <p className="text-white/60 poppins-regular">
+          Generate Stunning Anime Images from Text for FREE
         </p>
       </div>
 
       <div className="flex w-full lg:px-5 gap-3 h-full lg:h-[calc(100dvh-200px)] md:flex-row flex-col">
         <div className="__form flex-[2] h-full gap-2 flex items-center lg:items-start flex-col">
           <div className="flex justify-center items-center gap-x-3  mb-5 lg:mb-[10%] mt-5 lg:mt-10">
-            <Link href={"/create-anime"}>
-              <Button className="poppins-semibold">Generate Anime</Button>
+            <Link href={"/create"}>
+              <Button className="poppins-semibold">Generate Images</Button>
             </Link>
             <Link href={"/profile"}>
               <Button className="poppins-semibold">check your creations</Button>
             </Link>
           </div>
           <p className="w-full text-left text-sm text-white/80">
-            Type your prompt below to create any image you can imagine!
+            Type your prompt below to create your anime image!
           </p>
           <div className="flex gap-2 w-full">
             <Form {...form}>
