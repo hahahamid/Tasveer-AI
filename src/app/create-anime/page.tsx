@@ -19,14 +19,12 @@ import Link from "next/link";
 import { MagicWandIcon, ShuffleIcon } from "@radix-ui/react-icons";
 import { useSession } from "next-auth/react";
 
-// Define the schema using Zod
 const formSchema = z.object({
   prompt: z
     .string()
-    .min(7, { message: "Prompt must be at least 7 characters long!" }),
+    .min(7, { message: "Prompt must be atleast 7 characters long!" }),
 });
 
-// Define the array of random prompts
 const prompts = [
   "A futuristic cityscape at sunset, featuring towering skyscrapers with neon lights, flying cars weaving between buildings, and holographic billboards illuminating the sky.",
   "A serene forest with a cascading waterfall, surrounded by ancient towering trees, vibrant wildflowers, and a crystal-clear pond reflecting the lush greenery.",
@@ -73,21 +71,16 @@ export default function Page() {
     },
   });
 
-
-  const { data: session, status } = useSession(); // Get session data
-  const isLoggedIn = status === "authenticated"; // Determine if user is logged in
+  const { data: session, status } = useSession();
+  const isLoggedIn = status === "authenticated";
 
   const { setValue } = form;
 
-  // Function to handle form submission
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       setLoading(true);
-      const response = await fetch("/api/image", {
+      const response = await fetch("/api/anime", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
         body: JSON.stringify(values),
       });
       const data = await response.json();
@@ -96,21 +89,16 @@ export default function Page() {
       } else {
         toast({
           variant: "destructive",
-          description: "You are unauthorized! Please login to generate images.",
+          description: "You are unauthorized! Please login to generate images",
         });
       }
     } catch (error) {
       console.error(error);
-      toast({
-        variant: "destructive",
-        description: "An unexpected error occurred. Please try again.",
-      });
     } finally {
       setLoading(false);
     }
   }
 
-  // Function to handle random prompt selection
   const handleRandomPrompt = () => {
     const randomIndex = Math.floor(Math.random() * prompts.length);
     const randomPrompt = prompts[randomIndex];
@@ -120,19 +108,17 @@ export default function Page() {
   return (
     <div className="w-full p-3 min-h-dvh h-full flex justify-start items-center pt-[72px] flex-col">
       <div className="w-full p-3 lg:mb-5 text-center lg:text-left">
-        <h1 className="text-white text-4xl poppins-semibold">CREATE</h1>
-        <p className="text-white/60">
-          Generate Stunning Images from Text for FREE
+        <h1 className="text-white text-4xl poppins-semibold">CREATE ANIME</h1>
+        <p className="text-white/60 poppins-regular">
+          Generate Stunning Anime Images from Text for FREE
         </p>
       </div>
 
       <div className="flex w-full lg:px-5 gap-3 h-full lg:h-[calc(100dvh-200px)] md:flex-row flex-col">
-        {/* Form Section */}
         <div className="__form flex-[2] h-full gap-2 flex items-center lg:items-start flex-col">
-          {/* Navigation Buttons */}
-          <div className="flex justify-center items-center gap-x-3 mb-5 lg:mb-[10%] mt-5 lg:mt-10">
-            <Link href={"/create-anime"}>
-              <Button className="poppins-semibold">Generate Anime</Button>
+          <div className="flex justify-center items-center gap-x-3  mb-5 lg:mb-[10%] mt-5 lg:mt-10">
+            <Link href={"/create"}>
+              <Button className="poppins-semibold">Generate Images</Button>
             </Link>
             {isLoggedIn ? (
               <Link href={"/profile"}>
@@ -154,13 +140,9 @@ export default function Page() {
               </Button>
             )}
           </div>
-
-          {/* Instructions */}
           <p className="w-full text-left text-sm text-white/80">
-            Type your prompt below to create any image you can imagine!
+            Type your prompt below to create your anime image!
           </p>
-
-          {/* Form */}
           <div className="flex gap-2 w-full">
             <Form {...form}>
               <form
@@ -174,7 +156,7 @@ export default function Page() {
                     <FormItem className="w-full max-w-full lg:max-w-[70%]">
                       <FormControl>
                         <Input
-                          placeholder="A cat sitting over a sofa..."
+                          placeholder="a cat sitting over a sofa..."
                           className="w-full transition-all border-white"
                           {...field}
                         />
@@ -193,13 +175,11 @@ export default function Page() {
               </form>
             </Form>
           </div>
-
-          {/* Action Buttons */}
           <div className="flex justify-center items-center gap-x-3 mt-5">
             <Button
+              onClick={handleRandomPrompt}
+              type="button"
               className="poppins-semibold flex gap-x-2"
-              onClick={handleRandomPrompt} // Attach click handler
-              type="button" // Ensure it's a button, not a submit
             >
               <ShuffleIcon /> Random Prompt
             </Button>
@@ -208,8 +188,6 @@ export default function Page() {
             </Button> */}
           </div>
         </div>
-
-        {/* Output Section */}
         <div className="__output min-h-[300px] lg:min-h-full lg:h-full flex-[1] rounded-lg relative overflow-hidden my-2 lg:my-0">
           {outputImg ? (
             <Image
@@ -220,9 +198,11 @@ export default function Page() {
               height={1024}
             />
           ) : (
-            <div className="w-full min-h-[300px] bg-white/5 h-full flex justify-center items-center text-white/70 text-center p-3">
-              Enter your prompt and hit generate!
-            </div>
+            <>
+              <div className="w-full min-h-[300px] bg-white/5 h-full flex justify-center items-center text-white/70 text-center p-3">
+                Enter your prompt and hit generate!
+              </div>
+            </>
           )}
         </div>
       </div>
