@@ -23,9 +23,9 @@ export default function Home() {
   const images = [ten, one, eight, two, seven, five, four, six, three, nine];
   const duplicatedImages = [...images, ...images];
 
-  const isMobile = useIsMobile(768); 
+  const isMobile = useIsMobile(768);
 
-  const animationDuration = isMobile ? 30 : 40; 
+  const animationDuration = isMobile ? 30 : 40;
 
   const carouselRef = useRef<HTMLDivElement>(null);
   const [carouselWidth, setCarouselWidth] = useState(0);
@@ -34,7 +34,7 @@ export default function Home() {
     const handleResize = () => {
       if (carouselRef.current) {
         const totalWidth = carouselRef.current.scrollWidth;
-        const width = totalWidth / 2; 
+        const width = totalWidth / 2;
         setCarouselWidth(width);
       }
     };
