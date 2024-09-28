@@ -109,7 +109,7 @@ export default function Page() {
           </Link>
         ) : (
           <Button
-            className="poppins-semibold"
+            className="poppins-semibold mt-5 md:mt-0"
             onClick={() =>
               toast({
                 variant: "destructive",
@@ -187,9 +187,8 @@ export default function Page() {
               { style: "Realistic", imgSrc: real, model: "turbo" },
               { style: "3D", imgSrc: threeD, model: "flux-3d" },
             ].map(({ style, imgSrc, model }) => (
-              <div className="flex flex-col poppins-regular">
+              <div key={style} className="flex flex-col poppins-regular">
                 <div
-                  key={style}
                   className={`relative h-auto w-auto border rounded-xl p-4 cursor-pointer ${
                     selectedStyle === model ? "border-white border-2" : ""
                   }`}

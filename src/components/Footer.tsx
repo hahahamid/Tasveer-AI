@@ -2,14 +2,13 @@
 import { LinkedInLogoIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
 import React from "react";
-import { usePathname } from "next/navigation"; // Import usePathname
+import { usePathname } from "next/navigation"; 
 
 export default function Footer() {
-  const pathname = usePathname(); // Get the current pathname
+  const pathname = usePathname(); 
 
-  // Only render if at the home page
   if (pathname !== "/") {
-    return null; // Return null if not on home page
+    return null; 
   }
 
   return (
