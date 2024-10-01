@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import real from "@/images/real.jpg";
 import dark from "@/images/five.jpg";
@@ -49,6 +49,7 @@ export default function Page() {
   });
 
   const { setValue } = form;
+  const outputRef = useRef<HTMLDivElement>(null);
 
   const handleRandomPrompt = () => {
     const randomIndex = Math.floor(Math.random() * prompts.length);
@@ -91,6 +92,14 @@ export default function Page() {
     }
   }
 
+  useEffect(() => {
+    if (outputImg && outputRef.current) {
+      if (window.innerWidth <= 768) {
+        outputRef.current.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  }, [outputImg]);
+
   return (
     <div className="w-full p-3 min-h-dvh h-full flex justify-start items-center pt-[72px] flex-col">
       <div className="w-full p-5 lg:mb-5 text-center lg:text-left flex flex-col md:flex-row md:justify-between">
@@ -123,14 +132,11 @@ export default function Page() {
       </div>
 
       <div className="flex w-full lg:px-5 gap-3 h-full lg:h-[calc(100dvh-200px)] md:flex-row flex-col">
-        {/* Form Section */}
         <div className="__form flex-[1.5] h-full gap-2 flex items-center lg:items-start flex-col">
-          {/* Instructions */}
           <p className="w-full text-left text-sm text-white/80 poppins-regular">
             Type your prompt below to create any image you can imagine!
           </p>
 
-          {/* Form */}
           <div className="flex gap-2 w-full">
             <Form {...form}>
               <form
@@ -164,7 +170,6 @@ export default function Page() {
             </Form>
           </div>
 
-          {/* Action Buttons */}
           <div className="flex justify-center items-center gap-x-3 mt-5">
             <Button
               className="poppins-semibold flex gap-x-2"
@@ -174,8 +179,6 @@ export default function Page() {
               <ShuffleIcon /> Random Prompt
             </Button>
           </div>
-
-          {/* Style Selection */}
           <div className="poppins-semibold uppercase pt-5 text-lg">
             Select Style
           </div>
@@ -209,7 +212,7 @@ export default function Page() {
             ))}
           </div>
 
-          <div className="lg:hidden flex gap-x-5 flex-nowrap w-screen overflow-x-auto text-center px-5">
+          <div className="lg:hidden flex gap-x-5 flex-nowrap w-screen overflow-x-auto overflow-y-hidden text-center px-5">
             {[
               { style: "Standard AI", imgSrc: stan, model: "flux" },
               { style: "Anime", imgSrc: anime, model: "flux-anime" },
@@ -242,8 +245,10 @@ export default function Page() {
           </div>
         </div>
 
-        {/* Output Section */}
-        <div className="__output min-h-[300px] lg:min-h-full lg:h-full flex-[1] rounded-lg relative overflow-hidden my-2 lg:my-0">
+        <div
+          ref={outputRef}
+          className="__output min-h-[300px] lg:min-h-full lg:h-full flex-[1] rounded-lg relative overflow-hidden my-2 lg:my-0"
+        >
           {outputImg ? (
             <Image
               alt="output"
