@@ -161,9 +161,9 @@ export default function Home() {
               className="flex flex-col justify-center items-center mt-10 lg:mt-20 w-full"
             >
               {/* Section Title */}
-              <div className="poppins-semibold text-xl mb-4">
+              {/* <div className="poppins-semibold text-xl mb-4">
                 Recent Creations
-              </div>
+              </div> */}
 
               {/* Carousel Container */}
               <div className="overflow-hidden w-[97%] md:w-full">

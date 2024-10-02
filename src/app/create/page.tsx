@@ -104,21 +104,21 @@ export default function Page() {
     <div className="w-full p-3 min-h-dvh h-full flex justify-start items-center pt-[72px] flex-col">
       <div className="w-full p-5 lg:mb-5 text-center lg:text-left flex flex-col md:flex-row md:justify-between">
         <div>
-          <h1 className="text-white text-4xl poppins-semibold">CREATE</h1>
-          <p className="text-white/60 poppins-regular">
+          <h1 className="text-white text-3xl md:text-4xl poppins-semibold ">CREATE</h1>
+          <p className="text-white/60 poppins-regular text-xs md:text-base text-nowrap">
             Generate Stunning Images from Text for FREE
           </p>
         </div>
 
         {isLoggedIn ? (
           <Link href={"/profile"}>
-            <Button className="poppins-semibold mt-5 md:mt-0">
+            <Button className="hidden lg:block poppins-semibold mt-5 md:mt-0">
               Check Your Creations
             </Button>
           </Link>
         ) : (
           <Button
-            className="poppins-semibold mt-5 md:mt-0"
+            className="hidden lg:block poppins-semibold mt-5 md:mt-0"
             onClick={() =>
               toast({
                 variant: "destructive",
@@ -132,12 +132,8 @@ export default function Page() {
       </div>
 
       <div className="flex w-full lg:px-5 gap-3 h-full lg:h-[calc(100dvh-200px)] md:flex-row flex-col">
-        <div className="__form flex-[1.5] h-full gap-2 flex items-center lg:items-start flex-col">
-          <p className="w-full text-left text-sm text-white/80 poppins-regular">
-            Type your prompt below to create any image you can imagine!
-          </p>
-
-          <div className="flex gap-2 w-full">
+        <div className="__form flex-[1.5] h-full gap-2 flex items-start flex-col">
+          <div className="flex gap-2 w-full mt-10">
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
@@ -150,8 +146,8 @@ export default function Page() {
                     <FormItem className="w-full max-w-full lg:max-w-[70%]">
                       <FormControl>
                         <Input
-                          placeholder="A cat sitting over a sofa..."
-                          className="w-full transition-all border-white"
+                          placeholder="Type your prompt..."
+                          className="w-full transition-all border-white poppins-regular"
                           {...field}
                         />
                       </FormControl>
@@ -172,7 +168,7 @@ export default function Page() {
 
           <div className="flex justify-center items-center gap-x-3 mt-5">
             <Button
-              className="poppins-semibold flex gap-x-2"
+              className="poppins-semibold flex gap-x-2 h-8 w-auto"
               onClick={handleRandomPrompt}
               type="button"
             >
@@ -182,7 +178,7 @@ export default function Page() {
           <div className="poppins-semibold uppercase pt-5 text-lg">
             Select Style
           </div>
-          <div className="hidden lg:grid grid-cols-1 lg:grid-cols-3 gap-5 lg:mr-10 text-center">
+          <div className="hidden lg:grid grid-cols-1 lg:grid-cols-5 gap-5 lg:mr-10 text-center">
             {[
               { style: "Standard", imgSrc: stan, model: "flux" },
               { style: "Anime", imgSrc: anime, model: "flux-anime" },
@@ -201,7 +197,7 @@ export default function Page() {
                   <Image
                     src={imgSrc}
                     alt={`${style} image`}
-                    className="rounded-lg w-60 h-60 object-cover"
+                    className="rounded-lg w-auto h-auto object-cover"
                   />
                   {selectedStyle !== model && (
                     <BorderBeam size={250} duration={10} delay={9} />
@@ -222,7 +218,7 @@ export default function Page() {
             ].map(({ style, imgSrc, model }) => (
               <div
                 key={style}
-                className="flex-shrink-0 w-72 flex flex-col poppins-regular"
+                className="flex-shrink-0 w-auto flex flex-col poppins-regular"
               >
                 <div
                   className={`relative h-auto w-full border rounded-xl p-4 cursor-pointer ${
@@ -233,7 +229,7 @@ export default function Page() {
                   <Image
                     src={imgSrc}
                     alt={`${style} image`}
-                    className="rounded-lg w-full h-60 object-cover"
+                    className="rounded-lg w-full h-28 object-cover"
                   />
                   {selectedStyle !== model && (
                     <BorderBeam size={250} duration={10} delay={9} />
@@ -258,7 +254,7 @@ export default function Page() {
               height={1024}
             />
           ) : (
-            <div className="w-full min-h-[300px] bg-white/5 h-full flex justify-center items-center text-white/70 text-center p-3 poppins-regular">
+            <div className="w-full min-h-[300px] bg-white/5 h-full flex justify-center items-center text-white/70 text-center p-3 mt-5 poppins-regular">
               Enter your prompt and hit generate!
             </div>
           )}

@@ -16,7 +16,6 @@ export default function Page() {
       setLoading(true);
       const response = await fetch("/api/image");
       const data = await response.json();
-      console.log(data);
       setPosts(data);
     } catch (error) {
       console.error(error);
