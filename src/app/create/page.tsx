@@ -22,9 +22,10 @@ import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
-import { ShuffleIcon } from "@radix-ui/react-icons";
+import { MagicWandIcon, ShuffleIcon } from "@radix-ui/react-icons";
 import { prompts } from "@/utils/prompts";
 import { BorderBeam } from "@/components/ui/border-beam";
+import { Textarea } from "@/components/ui/textarea";
 
 const formSchema = z.object({
   prompt: z
@@ -104,7 +105,9 @@ export default function Page() {
     <div className="w-full p-3 min-h-dvh h-full flex justify-start items-center pt-[72px] flex-col">
       <div className="w-full p-5 lg:mb-5 text-center lg:text-left flex flex-col md:flex-row md:justify-between">
         <div>
-          <h1 className="text-white text-3xl md:text-4xl poppins-semibold ">CREATE</h1>
+          <h1 className="text-white text-3xl md:text-4xl poppins-semibold ">
+            CREATE
+          </h1>
           <p className="text-white/60 poppins-regular text-xs md:text-base text-nowrap">
             Generate Stunning Images from Text for FREE
           </p>
@@ -133,21 +136,21 @@ export default function Page() {
 
       <div className="flex w-full lg:px-5 gap-3 h-full lg:h-[calc(100dvh-200px)] md:flex-row flex-col">
         <div className="__form flex-[1.5] h-full gap-2 flex items-start flex-col">
-          <div className="flex gap-2 w-full mt-10">
+          <div className="flex flex-col md:flex-row gap-2 w-full mt-4 md:mt-0">
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
-                className="w-full flex gap-2"
+                className="w-full flex flex-col gap-2"
               >
                 <FormField
                   control={form.control}
                   name="prompt"
                   render={({ field }) => (
-                    <FormItem className="w-full max-w-full lg:max-w-[70%]">
+                    <FormItem className="w-full max-w-full lg:max-w-[95%]">
                       <FormControl>
-                        <Input
+                        <Textarea
                           placeholder="Type your prompt..."
-                          className="w-full transition-all border-white poppins-regular"
+                          className="w-full h-32 md:h-32 transition-all border-white poppins-regular text-sm md:text-base"
                           {...field}
                         />
                       </FormControl>
@@ -155,26 +158,28 @@ export default function Page() {
                     </FormItem>
                   )}
                 />
-                <Button
-                  loading={loading}
-                  type="submit"
-                  className={`${loading ? "gap-x-2" : ""} poppins-semibold`}
-                >
-                  {loading ? "Generating..." : "Generate"}
-                </Button>
+                <div className="flex items-center gap-x-2">
+                  <Button
+                    loading={loading}
+                    type="submit"
+                    className={`w-auto h-8 ${
+                      loading ? "gap-x-2" : "gap-x-2"
+                    } poppins-semibold`}
+                  >
+                    <MagicWandIcon /> {loading ? "Generating..." : "Generate"}
+                  </Button>
+                  <Button
+                    className="poppins-semibold flex gap-x-2 h-8 w-auto"
+                    onClick={handleRandomPrompt}
+                    type="button"
+                  >
+                    <ShuffleIcon /> Random Prompt
+                  </Button>
+                </div>
               </form>
             </Form>
           </div>
 
-          <div className="flex justify-center items-center gap-x-3 mt-5">
-            <Button
-              className="poppins-semibold flex gap-x-2 h-8 w-auto"
-              onClick={handleRandomPrompt}
-              type="button"
-            >
-              <ShuffleIcon /> Random Prompt
-            </Button>
-          </div>
           <div className="poppins-semibold uppercase pt-5 text-lg">
             Select Style
           </div>

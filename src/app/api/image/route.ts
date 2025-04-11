@@ -29,9 +29,39 @@ export async function POST(request: NextRequest) {
   }
 
   const randomSeed = generateRandomNumber();
-  const imageURL = `https://image.pollinations.ai/prompt/${encodeURIComponent(
-    prompt
-  )}?seed=${randomSeed}&model=${style}&enhance=True&nologo=True`;
+  // const imageURL = `https://image.pollinations.ai/prompt/${encodeURIComponent(
+  //   prompt
+  // )}?seed=${randomSeed}&model=${style}&enhance=True&nologo=True`;
+
+  const stylePromptMap = {
+    flux: "", // No additional text for Standard
+    "flux-anime": " and make the image in anime style",
+    "any-dark": " and make the image in a dark, moody style",
+    turbo: " and make the image in a hyper-realistic style",
+    "flux-3d": " and make the image in a 3D-rendered style",
+  };
+
+  // Function to construct the image URL
+  const getImageURL = (prompt: string, style: string, randomSeed: number) => {
+    console.log(style);
+
+    // Get the prompt enhancement based on the style
+    const promptEnhancement = stylePromptMap[style] || "";
+
+    // Combine the original prompt with the style-specific enhancement
+    const finalPrompt = `${prompt}${promptEnhancement}`;
+
+    // Construct the URL without the model parameter
+    const imageURL = `https://image.pollinations.ai/prompt/${encodeURIComponent(
+      finalPrompt
+    )}?seed=${randomSeed}&enhance=True&nologo=True`;
+
+    return imageURL;
+  };
+
+  // Generate the image URL
+  const imageURL = getImageURL(prompt, style, randomSeed);
+  console.log(imageURL);
 
   await fetch(imageURL);
   await prisma.post.create({
