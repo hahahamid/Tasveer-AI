@@ -3,6 +3,7 @@ import prisma from "@/utils/prisma";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 
+
 export async function POST(request: NextRequest) {
   const session = await getServerSession(authOptions);
   if (!session) {
@@ -41,8 +42,10 @@ export async function POST(request: NextRequest) {
     "flux-3d": " and make the image in a 3D-rendered style",
   };
 
+  type StyleKey = keyof typeof stylePromptMap;
+
   // Function to construct the image URL
-  const getImageURL = (prompt: string, style: string, randomSeed: number) => {
+  const getImageURL = (prompt: string, style: StyleKey, randomSeed: number) => {
     console.log(style);
 
     // Get the prompt enhancement based on the style
@@ -60,7 +63,7 @@ export async function POST(request: NextRequest) {
   };
 
   // Generate the image URL
-  const imageURL = getImageURL(prompt, style, randomSeed);
+  const imageURL = getImageURL(prompt, style as StyleKey, randomSeed);
   console.log(imageURL);
 
   await fetch(imageURL);
