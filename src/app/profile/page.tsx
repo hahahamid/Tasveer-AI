@@ -6,10 +6,13 @@ import { AnimatePresence, motion } from "framer-motion";
 import { LoaderCircle } from "lucide-react";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
+import ImageViewer from "@/components/ImageViewer";
 
 export default function Page() {
   const [loading, setLoading] = useState<boolean>(true);
   const [posts, setPosts] = useState<Post[]>([]);
+  const [selectedPost, setSelectedPost] = useState<Post | null>(null);
+  const [scrollPosition, setScrollPosition] = useState<number>(0); // State to store scroll position
 
   const fetchPosts = async () => {
     try {
@@ -22,6 +25,35 @@ export default function Page() {
     } finally {
       setLoading(false);
     }
+  };
+
+  // Function to scroll to the top of the page
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
+  // Function to restore the saved scroll position
+  const restoreScrollPosition = () => {
+    window.scrollTo({
+      top: scrollPosition,
+      behavior: "smooth",
+    });
+  };
+
+  // Handle image click: save scroll position, open viewer, scroll to top
+  const handleImageClick = (post: Post) => {
+    setScrollPosition(window.scrollY); // Save current scroll position
+    setSelectedPost(post);
+    scrollToTop();
+  };
+
+  // Handle viewer close: clear selected post, restore scroll position
+  const handleViewerClose = () => {
+    setSelectedPost(null);
+    restoreScrollPosition();
   };
 
   useEffect(() => {
@@ -44,6 +76,7 @@ export default function Page() {
                 transition={{ duration: 0.2, delay: index * 0.05 }}
                 className="w-full h-fit rounded-md p-2.5 cursor-pointer"
                 key={post.id}
+                onClick={() => handleImageClick(post)} // Updated handler
               >
                 <Image
                   alt={post.prompt}
@@ -60,6 +93,8 @@ export default function Page() {
           })}
         </AnimatePresence>
       )}
+      <ImageViewer post={selectedPost} onClose={handleViewerClose} />{" "}
+      {/* Updated onClose */}
     </div>
   );
 }
